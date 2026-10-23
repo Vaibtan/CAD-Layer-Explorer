@@ -1,0 +1,37 @@
+services:
+  app:
+    build: .
+    volumes:
+      - cad-data:/data
+    networks:
+      - local
+    mem_limit: 1536m
+    pids_limit: 64
+    init: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: unless-stopped
+  web:
+    image: nginx:1.29-alpine
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      app:
+        condition: service_healthy
+    networks:
+      - local
+      - ingress
+    mem_limit: 64m
+    security_opt:
+      - no-new-privileges:true
+    restart: unless-stopped
+networks:
+  local:
+    internal: true
+  ingress:
+volumes:
+  cad-data:

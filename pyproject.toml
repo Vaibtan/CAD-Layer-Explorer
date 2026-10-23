@@ -1,0 +1,36 @@
+[project]
+name = "cad-layer-explorer"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi>=0.162.0",
+    "numpy==2.5.4",
+    "psutil==7.2.2",
+    "pymupdf==1.26.7",
+    "pypdf==6.21.2",
+    "python-multipart>=0.0.32",
+    "typing-extensions>=4.16.0",
+    "uvicorn>=0.54.0",
+]
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28",
+    "mypy>=2.4.0",
+    "playwright>=1.50",
+    "pytest>=8",
+    "types-psutil>=7.2.2.20260906",
+]
+
+[tool.mypy]
+python_version = "3.12"
+files = ["app"]
+strict = true
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+
+[[tool.mypy.overrides]]
+module = ["pymupdf", "pymupdf.*"]
+ignore_missing_imports = true

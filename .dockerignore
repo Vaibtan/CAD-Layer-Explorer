@@ -1,0 +1,11 @@
+.git
+.venv
+.agents
+.claude
+.codex
+tmp
+data
+**/__pycache__
+*.pdf
+tests
+docs
